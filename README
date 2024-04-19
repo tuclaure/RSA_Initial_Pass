@@ -1,0 +1,103 @@
+# Ciphered Sender and Receiver
+
+A set of programs designed to encrypt information, package it as a datagram, transmit it, receive it, check for errors, and decrypt the information securely.
+
+## Installation
+
+These programs are written in Python and require the following libraries to be installed:
+- `sys`
+- `random`
+- `sympy`
+- `os`
+- `base64`
+
+## Usage
+
+All programs can be run using either the command line with the command `python <program name> <variables>` or through an IDE.
+
+There is also an included set of premade testing cases within the TestSuite.py file. The TestSuit does require IDE useage to edit and implement correctly.
+
+### Program Usage:
+
+1. **Key Generation:**
+    ```
+    python KeyGenerate.py <keysize>
+    ```
+   Example:
+    ```
+    python KeyGenerate.py 512
+    ```
+   This will generate a key pair with the specified key size in bits.
+
+2. **Encryption:**
+    ```
+    python Encrypt.py <filelocation> <keylocation>
+    ```
+   Example:
+    ```
+    python Encrypt.py PlainFiles/testfile Output/public_key.pem
+    ```
+   This will encrypt the specified file using the provided public key.
+
+3. **Decryption:**
+    ```
+    python Decrypt.py <filelocation> <keylocation>
+    ```
+   Example:
+    ```
+    python Decrypt.py Output/'output file' Output/private_key.pem
+    ```
+   This will decrypt the specified file using the provided private key.
+
+4. **Sender:**
+    ```
+    python Sender.py <filelocation> <srcip> <dstip> <srcport> <dstport> <outputname>
+    ```
+   Example:
+    ```
+    python Sender Output/cipher.enc 192.168.52.4 192.168.35.10 2300 23450 datagram
+    ```
+   This will package the encrypted file as a datagram and write it to Output/datagram
+
+5. **Receiver:**
+    ```
+    python Receiver.py <srcip> <dstip> <filelocation>
+    ```
+   Example:
+    ```
+    python Receiver.py 192.168.52.4 192.168.35.10 Output/datagram
+    ```
+   This will analyze the datagram, check for errors, and extract the encrypted file.
+
+### Preset Options:
+
+If not specified, the programs will default to working within the current working directory (cwd) in the `Output` and `PlainFiles` folders for read and write operations.
+
+## Examples
+
+A typical use case might look something like this:
+
+python KeyGenerate.py 512
+python Encrypt.py PlainFiles/testfile Output/public_key.pem
+python Sender Output/cipher.enc 192.168.52.4 192.168.35.10 2300 23450
+python Receiver.py 192.168.52.4 192.168.35.10 Output/datagram
+python Decrypt.py Output/'output file' Output/private_key.pem
+
+This sequence of commands will:
+- Generate a key pair in the output file of size 512 bits.
+- Encrypt a file named `testfile` using the public key.
+- Create a datagram in the `Output` folder.
+- Read the datagram from the `Output` folder and write the data back as `'output file'`.
+- Decrypt the `'output file'` using the private key.
+
+## Additional Information
+
+- **Security**: The files are encrypted using a simplified RSA algorithm.
+- **Testing**: Testing has been performed with multiple use cases including files of differing sizes and mixed characters. All tests were repeated multiple times with new keys.
+- **Performance**: The greater the key size, the slower the key generation and encryption.
+
+## Author
+
+Written by David Tucker Laurence. 
+Contact: tuclaure@colostate.edu
+         tuclaure@gmail.com
